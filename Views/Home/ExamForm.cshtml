@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "ExamForm";
+}
+
+<h2>ExamForm</h2>
+
+<div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+
+            <label class="col-md-4 control-label">Country Name</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlCountry"> </select><br />
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-4 control-label">State Name</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlState"> </select><br />
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-md-4 control-label">City Name</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlCity"> </select><br />
+            </div>
+        </div>
+        <div class="col-lg-3">
+            </div></div>
+
+<script>
+
+    $(document).ready(function)(){
+
+        var ddlCountry = $('#ddlCountry');
+        ddlCountry.append($("
+            < Option >
+              </Option >
+            ").val('').html('Please Select Country'));
+              $.ajax({
+
+                url: 'https://localhost:44320/api/Cascading/CountryDetails', type: 'GET', dataType: 'json',
+                success: function (d) {
+                    $each(d, function (i, country) {
+
+                        ddlCountry.append($("
+                            < Option ></Option > ").val(country.CountryId).html(Country.CountryName));
+                      });
+                },
+                error: function () {
+                    alert('Error!');
+                }
+              });
+
+        $("#ddlCountry").change(function ()){
+            var CountryId = parseInt($(this).val());
+            if (!isNaN(CountryId)) {
+                var ddlState = $('#ddlState');
+                ddlState.empty();
+                ddlState.append($("
+                    
+                    < option >
+                    </option > ").val('').html('Please wait...'));
+                    debugger;
+                $.ajax({
+
+                    url: 'https://localhost:44320/api/Cascading/CountryDetails', type: 'GET', dataType: 'json',
+                    data: { CountryId: CountryId },
+                    success: function (d) {
+                        ddlState.empty();
+                        ddlState.append($("
+
+                            < Option ></option > ").val('').html('Select State'));
+                            $each(d, function (i, States) {
+                                ddlState.append($("
+                                    < Option ></Option > ")).error.function(){
+                                    alert('Error')};
+                    }
+                })
+                              }
+        }
+
+    }
+</script>
